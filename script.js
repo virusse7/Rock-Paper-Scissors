@@ -81,30 +81,23 @@ function playRound(playerChoice, computerChoice) {
     }
 }
 
-
-
 function game() {
-    let playerChoice, computerChoice;
+    playerSelectRock();
+    playerSelectPaper();
+    playerSelectScissors();
 
-    playRound(playerChoice, computerChoice);
-    console.log("Your score: " + playerScore);
-    console.log("Computer score: " + computerScore);
-    console.log("You choose: " + playerChoice);
-    console.log("Computer choose: " + computerChoice);
+    // console.log("Your score: " + playerScore);
+    // console.log("Computer score: " + computerScore);
+    // console.log("You choose: " + playerChoice);
+    // console.log("Computer choose: " + computerChoice);
 
-    if (playerScore > computerScore) {
-        console.log("You won");
-    } else if (computerScore === playerScore) {
-        console.log("Tie");
-    } else {
-        console.log("You lost");
-    }
+    // if (playerScore > computerScore) {
+    //     console.log("You won");
+    // } else if (computerScore === playerScore) {
+    //     console.log("Tie");
+    // } else {
+    //     console.log("You lost");
+    // }
 }
-playerSelectRock();
-playerSelectPaper();
-playerSelectScissors();
-// game();
-console.log("Player Score: " + playerScore);
-console.log("Computer Score: " + computerScore);
-// console.log(playerScore + " : " + computerScore);
 
+game();
