@@ -1,14 +1,16 @@
 
 let playerScore = 0;
 let computerScore = 0;
+let rounds = 0;
+let playerChoice;
+let computerChoice;
 
 function playerSelectRock() {
     const rock = document.querySelector(".rockButton");
     rock.addEventListener("click", () => {
         playerChoice = "Rock";
         computerChoice = getComputerChoice();
-        let result = playRound(playerChoice, computerChoice);
-        console.log(result);
+        playRound(playerChoice, computerChoice);
     })
 }
 
@@ -17,8 +19,7 @@ function playerSelectPaper() {
     paper.addEventListener("click", () => {
         playerChoice = "Paper";
         computerChoice = getComputerChoice();
-        let result = playRound(playerChoice, computerChoice);
-        console.log(result);
+        playRound(playerChoice, computerChoice);
     })
 }
 
@@ -27,9 +28,20 @@ function playerSelectScissors() {
     scissors.addEventListener("click", () => {
         playerChoice = "Scissors";
         computerChoice = getComputerChoice();
-        let result = playRound(playerChoice, computerChoice);
-        console.log(result);
+        playRound(playerChoice, computerChoice);
     })
+}
+
+function displayResult(result) {
+    const container = document.querySelector(".result");
+    const resultText = `Round ${rounds}: ${result}`;
+    container.textContent = resultText;
+    console.log(resultText);
+}
+
+function showScore(playerScore, computerScore) {
+    scoreContainer = document.querySelector(".score");
+    scoreContainer.textContent = (playerScore + " : " + computerScore);
 }
 
 function getComputerChoice() {
@@ -42,42 +54,29 @@ function getComputerChoice() {
     }
 }
 
-let playerChoice;
-let computerChoice;
-
 function playRound(playerChoice, computerChoice) {
+    rounds++;
     if (playerChoice === computerChoice) {
-        return "Draw";
+        displayResult("Draw");
+    } else if (
+        (playerChoice === "Rock" && computerChoice === "Scissors") ||
+        (playerChoice === "Paper" && computerChoice === "Rock") ||
+        (playerChoice === "Scissors" && computerChoice === "Paper")
+    ) {
+        playerScore++;
+        displayResult("You won!");
+    } else {
+        computerScore++;
+        displayResult("You lost");
     }
-    if (playerChoice === "Rock") {
-        if (computerChoice === "Paper") {
-            computerScore++;
-            return "You lost";
-        } else {
-            playerScore++;
-            return "You won";
-        }
-    }
-    if (playerChoice === "Paper") {
-        if (computerChoice === "Scissors") {
-            computerScore++;
-            return "You lost";
-        } else {
-            playerScore++;
-            return "You won";
-        }
-    }
-    if (playerChoice === "Scissors") {
-        if (computerChoice === "Rock") {
-            computerScore++;
-            return "You lost";
-        } else {
-            playerScore++;
-            return "You won";
-        }
-    }
-    if (playerChoice !== computerChoice) {
-        return "Please choose correct choice";
+    showScore(playerScore, computerScore);
+}
+
+function endGame() {
+    if (playerScore === 5) {
+        console.log("You won a game");
+    } else if (computerScore === 5) {
+        console.log("You lost a game");
     }
 }
 
@@ -85,19 +84,7 @@ function game() {
     playerSelectRock();
     playerSelectPaper();
     playerSelectScissors();
-
-    // console.log("Your score: " + playerScore);
-    // console.log("Computer score: " + computerScore);
-    // console.log("You choose: " + playerChoice);
-    // console.log("Computer choose: " + computerChoice);
-
-    // if (playerScore > computerScore) {
-    //     console.log("You won");
-    // } else if (computerScore === playerScore) {
-    //     console.log("Tie");
-    // } else {
-    //     console.log("You lost");
-    // }
+    showScore(playerScore, computerScore);
 }
 
 game();
