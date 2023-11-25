@@ -83,11 +83,12 @@ function playRound(playerChoice, computerChoice) {
 }
 
 function endGame() {
+    const endGameContainer = document.querySelector(".endGame");
     if (playerScore === 5) {
-        console.log("You won a game");
+        endGameContainer.textContent = "You won a game! Please refresh page to play again.";
     }
     if (computerScore === 5) {
-        console.log("You lost a game");
+        endGameContainer.textContent = "You lost a game. Please refresh page to play again.";
     }
     resetGame();
 }
