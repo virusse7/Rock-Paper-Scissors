@@ -5,6 +5,22 @@ let rounds = 0;
 let playerChoice;
 let computerChoice;
 
+function resetGame() {
+    playerScore = 0;
+    computerScore = 0;
+    rounds = 0;
+}
+
+function getComputerChoice() {
+    const computerChoice = Math.floor(Math.random() * 3);
+
+    switch (computerChoice) {
+        case 0: return "Rock";
+        case 1: return "Paper";
+        case 2: return "Scissors";
+    }
+}
+
 function playerSelectRock() {
     const rock = document.querySelector(".rockButton");
     rock.addEventListener("click", () => {
@@ -44,16 +60,6 @@ function showScore(playerScore, computerScore) {
     scoreContainer.textContent = (playerScore + " : " + computerScore);
 }
 
-function getComputerChoice() {
-    const computerChoice = Math.floor(Math.random() * 3);
-
-    switch (computerChoice) {
-        case 0: return "Rock";
-        case 1: return "Paper";
-        case 2: return "Scissors";
-    }
-}
-
 function playRound(playerChoice, computerChoice) {
     rounds++;
     if (playerChoice === computerChoice) {
@@ -70,14 +76,20 @@ function playRound(playerChoice, computerChoice) {
         displayResult("You lost");
     }
     showScore(playerScore, computerScore);
+
+    if (playerScore === 5 || computerScore === 5) {
+        endGame();
+    }
 }
 
 function endGame() {
     if (playerScore === 5) {
         console.log("You won a game");
-    } else if (computerScore === 5) {
+    }
+    if (computerScore === 5) {
         console.log("You lost a game");
     }
+    resetGame();
 }
 
 function game() {
